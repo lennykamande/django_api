@@ -1,0 +1,15 @@
+sudo: required 
+python:
+  - "3.8"
+
+services:
+  - docker
+
+before_install:
+  - pip install docker-compose
+
+script:
+  - docker-compose run app sh -c"python manage.py test && flake8"
+
+after_success:
+  - docker build -t lennymanyeki/django-api ./api
